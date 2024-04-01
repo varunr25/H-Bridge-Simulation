@@ -5,17 +5,17 @@
 %% Given values
 R = 0.5;                
 L = 1e-3;               
-V_m = 200/pi;           % Peak voltage of V_as.
+V_m = 200 / pi;           % Peak voltage of V_as.
 f = 60;                 % Frequency in Hz.
 omega = 2 * pi * f;     % Angular frequency.
 T = 1 / f;              % Period of the AC voltages.
 
 %% Simulation parameters
-dt = 1e-6;              % Time step for the simulation.
-k = 1;                  % Initializing counter value.
+dt = 1e-6;                  % Time step for the simulation.
+k = 1;                      % Initializing counter value.
 
-t_vec = 0:dt:T-dt;      % linspace to create the time vector.
-tend = length(t_vec);   % Number of elements in the time vector.
+t_vec = [0];      
+tend = T - dt;   % Number of elements in the time vector.
 
 V_T1 = [0];
 V_D1 = [0];
@@ -52,6 +52,7 @@ V_DC = 50; % check discord with akash for calculation
 theta_ac_rad = [0];
 theta_ac_deg = [0];
 
+%%
 disp("Single Phase Forward Euler Calculations: Invoked.");
 single_phase_FE; % Invoke Single Phase Euler calculations
 disp("  Complete.");

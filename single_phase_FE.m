@@ -2,7 +2,7 @@
 % ECE 31033 - Project #2
 % single_phase_FE.m
 
-while k < tend
+while t_vec(k) < tend
     V_as(k) = V_m * cos(omega * t_vec(k));  % AC voltage 
     dI_dt = (V_as(k) - R * i_AC(k)) / L;    % Change in current
     i_AC(k+1) = i_AC(k) + dI_dt * dt;       % AC current for next step
@@ -80,6 +80,7 @@ while k < tend
     theta_ac_rad(k) = omega * t_vec(k);             % theta_ac in radians
     theta_ac_deg(k) = rad2deg(theta_ac_rad(k));     % theta_ac in degrees
 
+    t_vec(k + 1) = t_vec(k) + dt;   
     k = k + 1;
 end
 
