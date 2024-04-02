@@ -7,7 +7,7 @@ dt = 1e-6;                  % Time step for the simulation.
 k = 1;                      % Initializing counter value.
 
 t_vec = [0];      
-tend = T_sw - dt;   % Number of elements in the time vector.
+tend = T_sw;   % Number of elements in the time vector.
 
 V_T1 = [0];
 V_D1 = [0];
