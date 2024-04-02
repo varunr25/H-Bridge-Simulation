@@ -8,55 +8,17 @@ L = 1e-3;
 V_m = 200 / pi;           % Peak voltage of V_as.
 f = 60;                 % Frequency in Hz.
 omega = 2 * pi * f;     % Angular frequency.
-T = 1 / f;              % Period of the AC voltages.
-
-%% Simulation parameters
-dt = 1e-6;                  % Time step for the simulation.
-k = 1;                      % Initializing counter value.
-
-t_vec = [0];      
-tend = T - dt;   % Number of elements in the time vector.
-
-V_T1 = [0];
-V_D1 = [0];
-
-V_T2 = [0];
-V_D2 = [0];
-
-V_T3 = [0];
-V_D3 = [0];
-
-V_T4 = [0];
-V_D4 = [0];
-
-i_T1 = [0];
-i_D1 = [0];
-
-i_T2 = [0];
-i_D2 = [0];
-
-i_T3 = [0];
-i_D3 = [0];
-
-i_T4 = [0];
-i_D4 = [0];
-
-i_AC = [0];
-dI_dt = [0];
-
-V_as = [0];
-V_AC = [0];
+T_sw = 1 / f;              % Period of the AC voltages.
 
 V_DC = 50; % check discord with akash for calculation
 
-theta_ac_rad = [0];
-theta_ac_deg = [0];
+%% Simulation parameters
+parameter_init;
 
+%% Invoke the script
 disp("Single Phase Forward Euler Calculations: Invoked.");
 single_phase_FE; % Invoke Single Phase Euler calculations
 disp("  Complete.");
-
-%disp("i_DC = " + i_DC);
 
 %% Plotting
 figure; % i_AC
@@ -188,8 +150,8 @@ ylabel('Current (A)');
 
 %% Spectrum Analysis
 % Perform Fourier series analysis
-N = 22;
-[avg, ak, bk, rcon, err] = fourseries(t_vec, V_as, T, N);
+N = 25;
+[avg, ak, bk, rcon, err] = fourseries(t_vec, V_as, T_sw, N);
 
 % Display the error
 disp(['Fourier Reconstruction Error: ', (num2str(100 * err)), '%.']);
