@@ -42,7 +42,7 @@ i_T4 = [0];
 i_D4 = [0];
 
 i_AC = [0];
-%i_DC = [0];
+dI_dt = [0];
 
 V_as = [0];
 V_AC = [0];
@@ -52,12 +52,11 @@ V_DC = 50; % check discord with akash for calculation
 theta_ac_rad = [0];
 theta_ac_deg = [0];
 
-%%
 disp("Single Phase Forward Euler Calculations: Invoked.");
 single_phase_FE; % Invoke Single Phase Euler calculations
 disp("  Complete.");
 
-disp("i_DC = " + i_DC);
+%disp("i_DC = " + i_DC);
 
 %% Plotting
 figure; % i_AC
@@ -189,29 +188,8 @@ ylabel('Current (A)');
 
 %% Spectrum Analysis
 % Perform Fourier series analysis
-N = 100;
+N = 15;
 [avg, ak, bk, rcon, err] = fourseries(t_vec, V_as, T, N);
 
 % Display the error
-disp(['Fourier Reconstruction Error: ', num2str(err)]);
-
-% Spectrum Analysis
-% Define the frequency range for analysis
-f_max = 1200; % Maximum frequency to analyze
-f_s = 1/dt; % Sampling frequency
-N_fft = length(V_as); % Number of points for FFT, can be set to a power of 2 for faster computation
-
-% Calculate the frequency bins
-freq_bins = f_s * (0:(N_fft/2)) / N_fft;
-
-% Perform FFT and take the magnitude
-V_as_fft = fft(V_as);
-V_as_magnitude = abs(V_as_fft/N_fft);
-
-% Plot the spectrum
-figure;
-plot(freq_bins, V_as_magnitude(1:N_fft/2+1)); % Plot only the positive frequencies
-xlabel('Frequency (Hz)');
-ylabel('|V(f)|');
-title('Frequency Spectrum of the Output Voltage');
-xlim([0 f_max]); % Limit x-axis to the range of interest
+disp(['Fourier Reconstruction Error: ', (num2str(100 * err)), '%.']);
