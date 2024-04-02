@@ -15,7 +15,7 @@ x = 15 - 30 * cos(2 * pi * 40 * t) + 20 * sin(2 * pi * 40 * t) + ...
 [avg, ak, bk, rcon, err] = fourseries(t, x, T, N);  % Invoking fourseries.m
 
 %% Plotting
-disp(['Fourier Series Reconstruction Error: ', num2str(err)]);
+disp(['Fourier Reconstruction Error: ', (num2str(100 * err)), '%.']);
 
 % Plotting both waveforms on the same plot
 figure; 
