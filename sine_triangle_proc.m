@@ -9,58 +9,20 @@ V_DC = 100;
 f_ac = 400; 
 phi_v = -pi/2; 
 f_sw = 7600;
-T_sw = 1 / f_sw;
+T_sw = 1 / f_ac;
 m = 1; 
 V_DC = 100;
 omega_ac = 2 * pi * f_ac;   % Angular frequency of AC voltage
 omega_sw = 2 * pi * f_sw;   % Angular frequency of switching signal
 
 %% Simulation parameters
-dt = 1e-6;                  % Time step for the simulation.
-k = 1;                      % Initializing counter value.
+parameter_init; 
 
-t_vec = [0];      
-tend = T_sw - dt;   % Number of elements in the time vector.
+D = [0];
+SW1_4 = [0];
+SW2_3 = [0];
 
-V_T1 = [0];
-V_D1 = [0];
-
-V_T2 = [0];
-V_D2 = [0];
-
-V_T3 = [0];
-V_D3 = [0];
-
-V_T4 = [0];
-V_D4 = [0];
-
-i_T1 = [0];
-i_D1 = [0];
-
-i_T2 = [0];
-i_D2 = [0];
-
-i_T3 = [0];
-i_D3 = [0];
-
-i_T4 = [0];
-i_D4 = [0];
-
-i_AC = [0];
-dI_dt = [0];
-
-V_as = [0];
-V_AC = [0];
-
-theta_ac_rad = [0];
-theta_ac_deg = [0];
-
-a_k = 0;
-triangle_wave = [0.5];
-
-N = 200; % Number of Fourier terms.  
-
-%%
+%% Invoke the script.
 disp("Sine-Triangle Forward Euler Calculations (m=1): Invoked.");
 sine_triangle_FE;
 disp("  Complete.");
@@ -82,7 +44,7 @@ disp("  Complete.");
 
 %% Plotting: Transistor Voltages and Currents
 figure;
-sgtitle("Voltages and Currents for each Transistor");
+sgtitle("Voltages and Currents for each Transistor when m = " + m);
 
 % Plot voltage across T1
 subplot(4, 2, 1);
@@ -142,7 +104,7 @@ ylabel('Current (A)');
 
 %% Plotting: Diode Voltages and Currents
 figure;
-sgtitle("Voltages and Currents for each Diode");
+sgtitle("Voltages and Currents for each Diode when m = " + m);
 
 % Plot voltage across D1
 subplot(4, 2, 1);

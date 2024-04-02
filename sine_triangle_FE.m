@@ -5,8 +5,8 @@
 while t_vec(k) < tend
     D(k) =  m * cos((omega_ac * t_vec(k)) + phi_v);
 
-    SW1_4(k+1) = sw(D(k), t_vec(k), T_sw);
-    SW2_3(k+1) = ~SW1_4(k);
+    SW1_4(k) = sw(D(k), t_vec(k), 1/7600);
+    SW2_3(k) = ~SW1_4(k);
     
     if(SW1_4(k))
         V_AC(k+1) = sqrt(2) * V_DC;
@@ -26,7 +26,6 @@ while t_vec(k) < tend
 
             i_D2(k+1) = 0;              i_D3(k+1) = 0;
             i_D1(k+1) = 0;              i_D4(k+1) = 0;
-        
         else
             i_T1(k+1) = 0;              i_T4(k+1) = 0;
             i_T2(k+1) = 0;              i_T3(k+1) = 0;
@@ -71,6 +70,3 @@ while t_vec(k) < tend
     k = k + 1;
 end
 
-% Remove the extra element at the end of arrays.
-i_AC(end) = [];
-t_vec(end)= [];
