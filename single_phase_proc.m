@@ -21,8 +21,8 @@ single_phase_FE; % Invoke Single Phase Euler calculations
 disp("  Complete.");
 
 %% Plotting
-figure; % i_AC
-plot(theta_ac_deg, i_AC); % Now theta_ac_deg and i_AC are the same length
+figure;
+plot(theta_ac_deg, i_AC); 
 xlabel('\theta_{ac} (degrees)');
 ylabel('Current (A)');
 title('AC Current Waveform');
@@ -150,36 +150,33 @@ ylabel('Current (A)');
 
 %% Spectrum Analysis
 % Perform Fourier series analysis
-N = 25;
-[avg, ak, bk, rcon, err] = fourseries(t_vec, V_as, T_sw, N);
+N = 5000;
+[avg, ak, bk, rcon, err] = fourseries(t_vec, V_AC, T_sw, N);
 
 % Display the error
+disp(['Fourier Reconstruction Error: ', num2str(err)]);
 disp(['Fourier Reconstruction Error: ', (num2str(100 * err)), '%.']);
 
 ak = ak(1:21);
 bk = bk(1:21);
 a1 = ak(1);
 b1 = bk(1);
-ak(3:21) = ak(2:20);
-bk(3:21) = bk(2:20);
-ak(2) = a1;
-bk(2) = b1;
-ak(1) = avg;
-bk(1) = 0;
 
 frequency = 0:60:1200;
+
 figure;
+sgtitle("Spectrum Analysis");
 subplot(3,1,1);
 stem(frequency, ak);
 xlabel('Frequency (Hz)');
-ylabel('Ak');
-title('Ak vs Frequency');
+ylabel('A_k');
+title('A_k vs Frequency');
 
 subplot(3,1,2);
 stem(frequency, bk);
 xlabel('Frequency (Hz)');
-ylabel('Bk');
-title('Bk vs Frequency');
+ylabel('B_k');
+title('B_k vs Frequency');
 
 subplot(3,1,3);
 plot(t_vec, rcon);

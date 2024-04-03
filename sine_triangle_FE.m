@@ -9,16 +9,21 @@ while t_vec(k) < tend
     SW2_3(k) = ~SW1_4(k);
     
     if(SW1_4(k))
-        V_AC(k+1) = sqrt(2) * V_DC;
+        if (m <= 1)
+            V_AC(k+1) = sqrt(2) * V_DC;
+        else
+            f_m = 0.5 * sqrt(1 - (1/m)^2) + 0.25 * m * (pi - 2 * acos(1/m));
+            V_AC(k+1) = (2 / pi) * V_DC * f_m * cos((omega_ac * t_vec(k)) + phi_v);
+        end
 
         dI_dt = (V_AC(k) - R * i_AC(k)) / L;
         i_AC(k + 1) = i_AC(k) + dI_dt * dt;
 
-        V_T1(k+1) = 0;          V_T4(k+1) = 0;
-        V_T2(k+1) = V_DC;       V_T3(k+1) = V_DC;
+        V_T1(k+1) = 0;              V_T4(k+1) = 0;
+        V_T2(k+1) = V_DC;           V_T3(k+1) = V_DC;
 
-        V_D1(k+1) = 0;          V_D4(k+1) = 0;
-        V_D2(k+1) = 0;          V_D3(k+1) = 0;
+        V_D1(k+1) = V_DC;           V_D4(k+1) = V_DC;
+        V_D2(k+1) = 0;              V_D3(k+1) = 0;
 
         if(i_AC(k+1) > 0)
             i_T1(k+1) = i_AC(k+1);      i_T4(k+1) = i_AC(k+1);
@@ -35,16 +40,21 @@ while t_vec(k) < tend
         end
 
     else
-        V_AC(k+1) = -sqrt(2) * V_DC;
+        if (m <= 1)
+            V_AC(k+1) = -sqrt(2) * V_DC;
+        else
+            f_m = 0.5 * sqrt(1 - (1/m)^2) + 0.25 * m * (pi - 2 * acos(1/m));
+            V_AC(k+1) = -(2 / pi) * V_DC * f_m * cos((omega_ac * t_vec(k)) + phi_v);
+        end
 
         dI_dt = (V_AC(k) - R * i_AC(k)) / L;
         i_AC(k + 1) = i_AC(k) + dI_dt * dt;
 
-        V_T1(k+1) = V_DC;       V_T4(k+1) = V_DC;
-        V_T2(k+1) = 0;          V_T3(k+1) = 0;
+        V_T1(k+1) = V_DC;           V_T4(k+1) = V_DC;
+        V_T2(k+1) = 0;              V_T3(k+1) = 0;
 
-        V_D1(k+1) = 0;          V_D4(k+1) = 0;
-        V_D2(k+1) = 0;          V_D3(k+1) = 0;
+        V_D1(k+1) = 0;              V_D4(k+1) = 0;
+        V_D2(k+1) = V_DC;           V_D3(k+1) = V_DC;
 
         if(i_AC(k+1) > 0)
             i_T1(k+1) = 0;              i_T4(k+1) = 0;
@@ -69,4 +79,3 @@ while t_vec(k) < tend
     t_vec(k + 1) = t_vec(k) + dt;
     k = k + 1;
 end
-

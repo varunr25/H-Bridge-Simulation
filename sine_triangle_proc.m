@@ -28,23 +28,9 @@ sine_triangle_FE;
 disp("  Complete.");
 
 %% Plotting
-% figure; % i_AC
-% plot(theta_ac_deg, i_AC); % Now theta_ac_deg and i_AC are the same length
-% xlabel('\theta_{ac} (degrees)');
-% ylabel('Current (A)');
-% title('AC Current Waveform');
-% grid on;
-% 
-% figure; % i_AC
-% plot(theta_ac_deg, triangle_wave); % Now theta_ac_deg and i_AC are the same length
-% xlabel('\theta_{ac} (degrees)');
-% ylabel('Current (A)');
-% title('Triangle Wave');
-% grid on;
-
-%% Plotting: Transistor Voltages and Currents
+% Plotting: Transistor Voltages and Currents
 figure;
-sgtitle("Voltages and Currents for each Transistor when m = " + m);
+sgtitle("Voltages and Currents for each Transistor");
 
 % Plot voltage across T1
 subplot(4, 2, 1);
@@ -104,7 +90,7 @@ ylabel('Current (A)');
 
 %% Plotting: Diode Voltages and Currents
 figure;
-sgtitle("Voltages and Currents for each Diode when m = " + m);
+sgtitle("Voltages and Currents for each Diode");
 
 % Plot voltage across D1
 subplot(4, 2, 1);
