@@ -6,9 +6,9 @@ while t_vec(k) < tend
     V_as(k) = V_m * cos(omega * t_vec(k));  
     
     % Apply switching logic based on the quarter periods
-    %if(t_vec(k) < 0.25/f) || (t_vec(k) > 0.75/f)
-    if V_as(k) >= 0
-        % T2 and T3 are ON, T1 and T4 are OFF
+    if(t_vec(k) < (0.25 / f)) || (t_vec(k) > (0.75/f))
+    %if V_as(k) >= 0
+        % T2 and T3 are OFF, T1 and T4 are ON
         V_AC(k) = -V_DC;
 
         V_T1(k) = V_DC;
@@ -43,7 +43,7 @@ while t_vec(k) < tend
             i_D4(k) = -i_AC(k);
         end
     else
-        % T1 and T4 are ON, T2 and T3 are OFF
+        % T1 and T4 are OFF, T2 and T3 are ON
         V_AC(k) = V_DC;
 
         V_T1(k) = 0;

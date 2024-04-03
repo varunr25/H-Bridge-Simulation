@@ -2,15 +2,24 @@
 % ECE 31033 - Project #2
 % sw.m
 
-function state = sw(D, t, T)
-    %create the fourier series all positive triangle wave array with period T
-    triangle = 0;
-    for n = 1:2:100
-        triangle = triangle + (8/(pi^2))*(1/n^2)*((-1)^((n-1)/2))*sin(n*2*pi*t/T);
+function state = sw(D, t, T_sw)    
+    w = 2 * pi / T_sw;
+
+    a_k = 0;
+    triangle_wave = 0.5;
+
+    N = 200; % Number of Fourier terms.    
+
+    k = 1;
+    while k <= N
+        z = k * w * T_sw; % Temporary variable; to simplify code for the coefficient.
+
+        a_k = (2 * (4 * cos(0.5 * z) - 2 * cos(z) - 2)) / (z^2);
+        triangle_wave = triangle_wave + a_k * cos(k * w * t);
+        k = k + 1;
     end
 
-    %compare the triangle wave with the duty cycle
-    if D >= triangle
+    if D >= triangle_wave 
         state = 1;
     else
         state = 0;

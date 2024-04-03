@@ -11,27 +11,36 @@ function [T1, T2, T3, T4, T5, T6] = three_phase_sw(D_a, D_b, D_c, t, T)
         triangle = triangle + ak * cos(k * w * t);
     end
 
-    if D_a >= triangle
+    if D_a > triangle
         T1 = 1;
         T4 = 0;
-    else
+    elseif D_a < triangle
         T1 = 0;
         T4 = 1;
+    else
+        T1 = 0;
+        T4 = 0;
     end
 
-    if D_b >= triangle
+    if D_b > triangle
         T2 = 1;
         T5 = 0;
-    else
+    elseif D_b < triangle
         T2 = 0;
         T5 = 1;
+    else
+        T2 = 0;
+        T5 = 0;
     end
 
-    if D_c >= triangle
+    if D_c > triangle
         T3 = 1;
         T6 = 0;
-    else
+    elseif D_c < triangle
         T3 = 0;
         T6 = 1;
+    else 
+        T3 = 0;
+        T6 = 0;
     end
 end
